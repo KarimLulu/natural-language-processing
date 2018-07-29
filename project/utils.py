@@ -2,10 +2,12 @@ import nltk
 import pickle
 import re
 import numpy as np
+from gensim.models import KeyedVectors
 
 nltk.download('stopwords')
 from nltk.corpus import stopwords
 
+BOT_TOKEN = "579636516:AAEiXoWGL773vwdKEfO08RpXI4Aca18rgPs"
 # Paths for all resources for the bot.
 RESOURCE_PATH = {
     'INTENT_RECOGNIZER': 'intent_recognizer.pkl',
@@ -46,23 +48,30 @@ def load_embeddings(embeddings_path):
     # Note that here you also need to know the dimension of the loaded embeddings.
     # When you load the embeddings, use numpy.float32 type as dtype
 
-    ########################
-    #### YOUR CODE HERE ####
-    ########################
-
-        pass 
+    embeddings = {}
+    with open(embeddings_path) as f:
+        for line in f:
+	    line = line.split("\t")
+	    embeddings[line[0]] = np.array([np.float(el) for el in line[1:]])
+        dim = len(line[1:])
+    return embeddings, dim
 
 def question_to_vec(question, embeddings, dim):
-    """Transforms a string to an embedding by averaging word embeddings."""
-    
-    # Hint: you have already implemented exactly this function in the 3rd assignment.
+    """
+        question: a string
+        embeddings: dict where the key is a word and a value is its' embedding
+        dim: size of the representation
 
-    ########################
-    #### YOUR CODE HERE ####
-    ########################
-
-        pass
-
+        result: vector representation for the question
+    """
+    q_2_vec = np.zeros(dim)
+    k = 0
+    for word in question.split(" "):
+        if word in embeddings:
+            q_2_vec += embeddings[word]
+            k += 1
+    k = k if k else 1
+    return q_2_vec / k
 
 def unpickle_file(filename):
     """Returns the result of unpickling the file content."""
