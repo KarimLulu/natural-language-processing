@@ -20,7 +20,7 @@ RESOURCE_PATH = {
 
 def text_prepare(text):
     """Performs tokenization and simple preprocessing."""
-    
+
     replace_by_space_re = re.compile('[/(){}\[\]\|@,;]')
     bad_symbols_re = re.compile('[^0-9a-z #+_]')
     stopwords_set = set(stopwords.words('english'))
@@ -43,7 +43,7 @@ def load_embeddings(embeddings_path):
       embeddings - dict mapping words to vectors;
       embeddings_dim - dimension of the vectors.
     """
-    
+
     # Hint: you have already implemented a similar routine in the 3rd assignment.
     # Note that here you also need to know the dimension of the loaded embeddings.
     # When you load the embeddings, use numpy.float32 type as dtype
@@ -51,8 +51,8 @@ def load_embeddings(embeddings_path):
     embeddings = {}
     with open(embeddings_path) as f:
         for line in f:
-	    line = line.split("\t")
-	    embeddings[line[0]] = np.array([np.float(el) for el in line[1:]])
+            line = line.split("\t")
+            embeddings[line[0]] = np.array([np.float(el) for el in line[1:]])
         dim = len(line[1:])
     return embeddings, dim
 
