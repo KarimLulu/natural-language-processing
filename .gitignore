@@ -102,4 +102,9 @@ ENV/
 
 # Data for assignments
 data/
+<<<<<<< HEAD
 thread_embeddings_by_tags/
+=======
+
+.idea
+>>>>>>> 47c43869c13f32598363f9ad93566533bf73c508
