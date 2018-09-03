@@ -103,3 +103,4 @@ ENV/
 # Data for assignments
 data/
 thread_embeddings_by_tags/
+.idea
